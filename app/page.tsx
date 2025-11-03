@@ -10,25 +10,29 @@ import { CTA } from "@/components/cta";
 import { FAQ } from "@/components/faq";
 import { Footer } from "@/components/footer";
 import { VantaBackground } from "@/components/vanta-background";
+import { SkipToContent } from "@/components/skip-to-content";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
-      <VantaBackground />
-      <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <SocialProof />
-        <Features />
-        <HowItWorks />
-        <Security />
-        <Pricing />
-        <Integrations />
-        <FAQ />
-        <CTA />
-        <Footer />
-      </div>
-    </main>
+    <>
+      <SkipToContent />
+      <main id="main-content" className="min-h-screen relative">
+        <VantaBackground />
+        <div className="relative z-10">
+          <Navbar />
+          <Hero />
+          <SocialProof />
+          <Features />
+          <HowItWorks />
+          <Security />
+          <Pricing />
+          <Integrations />
+          <FAQ />
+          <CTA />
+          <Footer />
+        </div>
+      </main>
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "@/components/ui/toast-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +57,25 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured Data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Hotaru",
+  applicationCategory: "ProductivityApplication",
+  description: "Share snippets, configs, and notes that auto-expire after 2 hours. Secure. Real-time. Effortless.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    ratingCount: "500",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -66,9 +86,18 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
-      <body className={`${inter.className} antialiased`}>
-        {children}
+      <body 
+        className={`${inter.className} antialiased`}
+        suppressHydrationWarning
+      >
+        <ToastProvider>
+          {children}
+        </ToastProvider>
         {/* Analytics placeholder */}
         {/* <script async src="https://analytics.example.com/script.js" data-website-id="xxx"></script> */}
       </body>

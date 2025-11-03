@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/toast-provider";
 
 interface WaitlistFormProps {
   variant?: "default" | "compact";
@@ -15,6 +16,7 @@ export function WaitlistForm({ variant = "default" }: WaitlistFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const { showToast } = useToast();
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -51,9 +53,14 @@ export function WaitlistForm({ variant = "default" }: WaitlistFormProps) {
         throw new Error(data.error || "Something went wrong");
       }
 
-      router.push("/success");
+      showToast("Successfully joined the waitlist! 🎉", "success");
+      setTimeout(() => {
+        router.push("/success");
+      }, 500);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+      const errorMessage = err instanceof Error ? err.message : "Something went wrong";
+      setError(errorMessage);
+      showToast(errorMessage, "error");
       setIsLoading(false);
     }
   };

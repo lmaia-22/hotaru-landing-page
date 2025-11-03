@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FireflyIcon } from "@/components/icons/firefly";
+import { MobileMenu } from "@/components/mobile-menu";
 
 export function Navbar() {
   return (
@@ -46,9 +47,14 @@ export function Navbar() {
             FAQ
           </a>
         </div>
-        <Button asChild>
-          <Link href="#cta">Join Waitlist</Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <div className="hidden md:block">
+            <Button asChild>
+              <Link href="#cta">Join Waitlist</Link>
+            </Button>
+          </div>
+          <MobileMenu />
+        </div>
       </div>
     </nav>
   );
